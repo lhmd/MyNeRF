@@ -15,7 +15,7 @@ class NeRF(nn.Module):
         :param skip_connection: 跳过的那一层
         :param use_viewdirs: 视角不存在的时候是FALSE
         """
-        
+
         super(NeRF, self).__init__()
         self.position_ch = position_ch
         self.direction_ch = direction_ch
@@ -29,7 +29,7 @@ class NeRF(nn.Module):
                                              else nn.Linear(hidden_unit + position_ch, hidden_unit)
                                              for i in range(depth - 1)
                                          ])
-        if self.use_viewdirs == True:
+        if self.use_viewdirs:
             self.sigma_layer = nn.Linear(hidden_unit, 1)
             self.feature_linear = nn.Linear(hidden_unit, hidden_unit)
             # 地板除，//代表除完之后只取整数部分
